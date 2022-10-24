@@ -1,5 +1,5 @@
 function getComputerChoice() {
-    number = random3();
+    number = getrandom3();
     if (number == 0) {
         return "rock";
     }
@@ -9,7 +9,7 @@ function getComputerChoice() {
     return "scissors";
 }
 
-function random3() { // get a random number from 0 to 2
+function getRandom3() {
     while (true) {
         let number = Math.floor(Math.random() * 10);
         if (number < 3) {
@@ -60,10 +60,10 @@ function game() {
         record[i] = playRound(playerSelection, computerSelection);
     }
     console.log(record);
-    console.log(judge(record));
+    console.log(getResult(record));
 }
 
-function judge(record) { // reports a winner or loser
+function getResult(record) {
     let winRecord = record.filter(element => element == "You Win!");
     let loseRecord = record.filter(element => element == "You Lose!");
     if (winRecord.length > loseRecord.length) {
