@@ -1,5 +1,5 @@
 function getComputerChoice() {
-    number = getrandom3();
+    number = getRandom3();
     if (number == 0) {
         return "rock";
     }
@@ -49,20 +49,6 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function game() {
-
-    let playerSelection;
-    let computerSelection;
-    let record = [];
-    for (let i = 0; i < 5; i++) {
-        playerSelection = prompt().toLowerCase();
-        computerSelection = getComputerChoice();
-        record[i] = playRound(playerSelection, computerSelection);
-    }
-    console.log(record);
-    console.log(getResult(record));
-}
-
 function getResult(record) {
     let winRecord = record.filter(element => element == "You Win!");
     let loseRecord = record.filter(element => element == "You Lose!");
@@ -74,5 +60,3 @@ function getResult(record) {
     }
     return "You Lose!";
 }
-
-game();
