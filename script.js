@@ -49,14 +49,37 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function getResult(record) {
-    let winRecord = record.filter(element => element == "You Win!");
-    let loseRecord = record.filter(element => element == "You Lose!");
-    if (winRecord.length > loseRecord.length) {
-        return "You Win!";
+function getResult(records) {
+    let winrecords = records.filter(element => element == "You Win!");
+    let loserecords = records.filter(element => element == "You Lose!");
+    if (winrecords.length > loserecords.length) {
+        return "You Win the game!!!!";
     }
-    else if (winRecord.length == loseRecord.length) {
-        return "draw";
+    else if (winrecords.length == loserecords.length) {
+        return "The game is a Tie!";
     }
-    return "You Lose!";
+    return "You Lost the game to a computer!";
 }
+
+function displayRunningScore(record) {
+    const scoreContainer = document.querySelector(".scoreContainer");
+    const score = document.createElement("div");
+    score.innerText = record;
+    scoreContainer.appendChild(score);
+}
+
+function announceWinner(){
+    getResult(records);
+    document.querySelector(".scoreContainer").innerHTML = getResult(records);
+    records = [];
+}
+let records = [];
+const buttons = Array.from(document.querySelectorAll("button"));
+buttons.forEach(button => button.addEventListener("click", () => {
+    const record = playRound(button.textContent, getComputerChoice());
+    records.push(record);
+    displayRunningScore(record)
+    if (records.length == 5) {
+        announceWinner();
+    }
+}));
