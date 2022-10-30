@@ -50,35 +50,43 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function getResult(records) {
-    if (winrecords.length > loserecords.length) {
+    if (winRecords.length > loseRecords.length) {
         return "You Win the game!!!!";
     }
     return "You Lost the game to a computer!";
 }
 
-function displayRunningScore(record) {
-    const scoreContainer = document.querySelector(".scoreContainer");
-    const score = document.createElement("div");
-    score.innerText = record;
-    scoreContainer.appendChild(score);
+function displayRunningScore(winRecords, loseRecords, record) {
+    const computer = document.querySelector(".computerScore");
+    const user = document.querySelector(".userScore");
+    const recordContainer = document.querySelector(".recordContainer");
+    computer.innerText = "Computer: " + loseRecords.length;
+    user.innerText = "You: " + winRecords.length;
+    recordContainer.innerText = record;
 }
 
 function announceWinner() {
     getResult(records);
-    document.querySelector(".scoreContainer").innerHTML = getResult(records);
+    const announcement = document.createElement("div")
+    announcement.classList.add("announcement")
+    announcement.innerText = getResult(records);
+    announcement.addEventListener("click", () => history.go(0))
+    document.body.innerHTML = "";
+    document.body.appendChild(announcement);
     records = [];
 }
 let records = [];
-let winrecords;
-let loserecords;
+let winRecords;
+let loseRecords;
 const buttons = Array.from(document.querySelectorAll("button"));
 buttons.forEach(button => button.addEventListener("click", () => {
     const record = playRound(button.textContent, getComputerChoice());
     records.push(record);
-    winrecords = records.filter(element => element == "You Win!");
-    loserecords = records.filter(element => element == "You Lose!");
-    displayRunningScore(record)
-    if ((winrecords.length == 5) || (loserecords.length == 5)) {
+    winRecords = records.filter(element => element == "You Win!");
+    loseRecords = records.filter(element => element == "You Lose!");
+    displayRunningScore(winRecords, loseRecords, record)
+    console.log(loseRecords.length)
+    if ((winRecords.length == 5) || (loseRecords.length == 5)) {
         announceWinner();
     }
 }));
